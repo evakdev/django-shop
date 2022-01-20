@@ -1,0 +1,38 @@
+{% extends 'store/base.html' %} {% load static %} {% block title %} Store
+{%endblock %} {% block content %}
+<div class="row products">
+  {% for product in object_list %}
+  <div class="col-sm-4 p-4">
+    <div class="card shadow border-0 rounded rounded-3">
+      <a href="#">
+        <img
+          class="card-img-top"
+          src="{{product.main_picture.url}}"
+          alt="Card image cap"
+        />
+      </a>
+      <div class="card-body">
+        <h5 class="card-title m-1 product-name">
+          <a class="text-decoration-none text-dark" href="">
+            {{product.name}}
+          </a>
+        </h5>
+      </div>
+      <div class="card-body mt-0 pt-0 row">
+        <div class="col">
+          <button
+            data-productid="{{product.id}}"
+            data-action="add"
+            class="col btn btn-outline-success update-cart"
+            type="submit"
+          >
+            Add to Cart
+          </button>
+        </div>
+        <div class="col product-price">${{product.price|floatformat:2}}</div>
+      </div>
+    </div>
+  </div>
+  {% endfor %}
+</div>
+{% endblock %}

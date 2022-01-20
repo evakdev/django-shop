@@ -1,0 +1,21 @@
+{% extends 'store/base.html' %} {% block title %} Profile {%endblock %} 
+{% block content %}
+<div class="container p-5">
+  <div class="row justify-content-center">
+    <div class="col-4">
+      
+      <h5 class="display-6 pb-4">Profile&nbsp; <a class='text-dark' title='Edit' href="{% url 'profile_edit' %}"><i class='far fa-edit fs-6'></i></a></h5>  
+      <strong>{{object.full_name}}</strong>
+      <br>
+      {{object.get_gender_display}}
+      <br>
+      Email: {{object.email}}
+
+      
+      
+
+      
+    </div>
+  </div>
+</div>
+{% endblock %}

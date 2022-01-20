@@ -1,0 +1,73 @@
+{% extends 'store/base.html' %} {% load static %} {% block title %} Cart
+{%endblock %} {% block content %}
+<div class="container pt-5">
+  {% if is_empty %}
+  <div class="align-middle text-center border rounded-3 mt-2 mb-5 p-5">
+    <h5 class="display">Your Cart is still empty!</h5>
+    <a class="text-dark" href="{% url 'home' %}">Add some items</a>
+  </div>
+  {% else %}
+  <a href="{% url 'home' %}"
+    ><button class="btn btn-sm btn-outline-secondary">
+      &#8592; Continue Shopping
+    </button></a
+  >
+  <div class="container mt-2 p-3 border rounded-3 mb-5">
+    <table class="table table-hover border-bottom">
+      <tbody>
+        {% for item in items %}
+        <tr class="align-middle">
+          <th scope="row ">{{forloop.counter}}</th>
+          <td>
+            <a href="#"
+              ><img
+                class="product-thumbnail-sm"
+                src="{{item.product.main_picture.url}}"
+                alt="{{item.product.name}}"
+              />
+            </a>
+          </td>
+          <td>{{item.product.name}}</td>
+          <td>${{item.product.price|floatformat:2}}</td>
+          <td>
+            <span class="arrow-icon"
+              ><i
+                data-productid="{{item.product.id}}"
+                data-action="remove"
+                class="fas fa-minus-square update-cart"
+              ></i></span
+            >&nbsp;&nbsp;{{item.quantity}}&nbsp;
+            <span class="arrow-icon"
+              ><i
+                data-productid="{{item.product.id}}"
+                data-action="add"
+                class="fas fa-plus-square update-cart"
+              ></i
+            ></span>
+          </td>
+          <td>${{item.total_price}}</td>
+        </tr>
+        {% endfor %}
+      </tbody>
+      <tfoot class="border-top-3 fw-bold">
+        <tr>
+          <td></td>
+          <td></td>
+          <td></td>
+          <td></td>
+          <td>Total:</td>
+
+          <td>${{total}}</td>
+        </tr>
+      </tfoot>
+    </table>
+    <div class="d-flex justify-content-end">
+      <a href="{% url 'checkout' %}"
+        ><button class="btn btn-outline-success">Checkout</button></a
+      >
+    </div>
+  </div>
+
+  {% endif %}
+</div>
+{% endblock %}

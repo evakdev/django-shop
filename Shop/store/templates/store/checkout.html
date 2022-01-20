@@ -1,0 +1,71 @@
+{% extends 'store/base.html' %} {% load static %} {% block title %} Checkout
+{%endblock %} {%block content %}
+
+<div class="container pt-5">
+  <div class="row mb-5">
+    <div class="col mt-2 me-1 p-3 border rounded-3">
+      <h6>Shipping Info</h6>
+      <form method="post">
+        {% csrf_token %} {{ form.non_field_errors }} {{form.reciever}}
+        {{form.reciever.errors}} {{form.email}} {{form.email.errors}}
+        {{form.phone}} {{form.phone.errors}} {{form.address}}
+        {{form.address.errors}}
+
+        <div class="row">
+          <div class="col">{{form.city}} {{form.city.errors}}</div>
+          <div class="col">{{form.zip_code}}{{form.zip_code.errors}}</div>
+        </div>
+        <div class="row">
+          <div class="col">{{form.state}}{{form.state.errors}}</div>
+          <div class="col">{{form.country}} {{form.country.errors}}</div>
+        </div>
+        <div class="d-flex justify-content-end mt-2">
+          <input
+            type="submit"
+            class="btn btn-outline-success shadow-sm"
+            value="Continue"
+          />
+        </div>
+      </form>
+    </div>
+
+    <div class="col mt-2 ms-1 p-3 border rounded-3">
+      <h6>Order Summary</h6>
+      <table class="table table-borderless">
+        <tbody>
+          {% for item in items %}
+          <tr class="align-middle">
+            <td>
+              <img
+                class="product-thumbnail-sm"
+                src="{{item.product.main_picture.url}}"
+                alt=""
+              />
+            </td>
+            <td>{{item.product.name}}</td>
+            <td>x{{item.quantity}}</td>
+            <td>${{item.product.price}}</td>
+          </tr>
+          {% endfor %}
+        </tbody>
+
+        <tfoot class="border-top">
+          <tr>
+            <td>Total</td>
+            <td></td>
+            <td></td>
+            <td>${{total}}</td>
+          </tr>
+        </tfoot>
+      </table>
+      <div class="d-flex justify-content-center">
+        <a href="{% url 'cart' %}"
+          ><button class="btn btn-outline-secondary shadow-sm">
+            &#8592; Back to Cart
+          </button>
+        </a>
+      </div>
+    </div>
+  </div>
+  {% endblock %}
+</div>
